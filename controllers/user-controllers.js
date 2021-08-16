@@ -3,6 +3,7 @@ const { User } = require("../models");
 const userController = {
   getAllUsers(req, res) {
     User.find({})
+      .select("-__v")
       .then((userData) => res.json(userData))
       .catch((err) => console.log(err));
   },
@@ -24,15 +25,15 @@ const userController = {
       .catch((err) => console.log(err));
   },
   updateUser({ params, body }, res) {
-    User.findOneAndUpdate({ _id: params.id }, body, { new: true }).then(
-      (updatedUserData) => {
+    User.findOneAndUpdate({ _id: params.id }, body, { new: true })
+      .then((updatedUserData) => {
         if (!updatedUserData) {
           res.json({ message: "No user with that ID" });
           return;
         }
         res.json(updatedUserData).catch((err) => console.log(err));
-      }
-    );
+      })
+      .catch((err) => console.log(err));
   },
   deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id }).then((deletedUser) => {
