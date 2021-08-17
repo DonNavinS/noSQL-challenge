@@ -15,15 +15,10 @@ const ThoughtsSchema = new Schema(
       type: String,
       require: true,
     },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
     reactions: [
       {
         reactionId: {
           type: Schema.Types.ObjectId,
-          // default: new Mongoose.Types.ObjectId(),
         },
         reactionBody: {
           type: String,
